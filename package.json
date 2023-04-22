@@ -1,7 +1,7 @@
 {
-  "name": "module-13-challenge-orm",
+  "name": "bc-m13-product-db",
   "version": "1.0.0",
-  "description": "",
+  "description": "AS A manager at an internet retail company I WANT a back end for my e-commerce website that uses the latest technologies SO THAT my company can compete with other e-commerce companies",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,11 +11,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@work.github.com:coding-boot-camp/module-13-challenge-orm.git"
+    "url": "git@github.com:CodeByDex/BC-M13-Product-DB.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": ["javascript", "express", "mysql", "sequalize", "node.js"],
+  "author": "CodeByDex",
+  "license": "UNLICENSED",
   "devDependencies": {
     "nodemon": "^2.0.3"
   },
