@@ -30,8 +30,14 @@ router.get('/:id', async (req, res) => {
   })
 });
 
-router.post('/', (req, res) => {
-  // create a new category
+router.post('/', async (req, res) => {
+  await util.SafeRequest(req, res, async (req, res) => {
+    const newCatReq = req.body.Category;
+
+    const newCatRec = await Category.create(newCatReq);
+
+    res.json(newCatRec);
+  })
 });
 
 router.put('/:id', (req, res) => {
