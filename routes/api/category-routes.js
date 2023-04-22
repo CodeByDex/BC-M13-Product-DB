@@ -46,7 +46,13 @@ router.put('/:id', (req, res) => {
 });
 
 router.delete('/:id', (req, res) => {
-  // delete a category by its `id` value
+  util.SafeRequest(req, res, async (req, res) => {
+    let cat = await getCategoryByID(req.params.id);
+
+    let catRes = await cat.destroy();
+
+    res.json(catRes);
+  })
 });
 
 module.exports = router;
