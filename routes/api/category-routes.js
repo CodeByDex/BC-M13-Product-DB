@@ -4,8 +4,8 @@ const { Category, Product } = require('../../models');
 
 // The `/api/categories` endpoint
 
-router.get('/', async (req, res) => {
-  await util.SafeRequest(req, res, async (req, res) => {
+router.get('/', (req, res) => {
+   util.SafeRequest(req, res, async (req, res) => {
     const catData = await Category.findAll({
       include: [{model: Product}]
     });
@@ -14,24 +14,16 @@ router.get('/', async (req, res) => {
   })
 });
 
-router.get('/:id', async (req, res) => {
-  await util.SafeRequest(req, res, async (req, res) => {
-    const id = req.params.id;
-
-    if (isNaN(id)) {
-      throw new Error("Param Invalid Format");
-    }
-
-    const cat = await Category.findByPk(id, {
-      include: [{model: Product}]
-    });
+router.get('/:id', (req, res) => {
+  util.SafeRequest(req, res, async (req, res) => {
+    const cat = await getCategoryByID(req.params.id);
 
     res.json(cat.get());
   })
 });
 
-router.post('/', async (req, res) => {
-  await util.SafeRequest(req, res, async (req, res) => {
+router.post('/', (req, res) => {
+   util.SafeRequest(req, res, async (req, res) => {
     const newCatReq = req.body.Category;
 
     const newCatRec = await Category.create(newCatReq);
@@ -41,7 +33,16 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/:id', (req, res) => {
-  // update a category by its `id` value
+  util.SafeRequest(req, res, async (req, res) => {
+    let cat = await getCategoryByID(req.params.id);
+
+    const upCatReq = req.body.Category;
+    cat.set(upCatReq);
+
+    let upCatRec = await cat.save();
+
+    res.json(upCatRec);
+  })
 });
 
 router.delete('/:id', (req, res) => {
@@ -49,3 +50,14 @@ router.delete('/:id', (req, res) => {
 });
 
 module.exports = router;
+async function getCategoryByID(id) {
+  if (isNaN(id)) {
+    throw new Error("Param Invalid Format");
+  }
+
+  const cat = await Category.findByPk(id, {
+    include: [{ model: Product }]
+  });
+  return cat;
+}
+
