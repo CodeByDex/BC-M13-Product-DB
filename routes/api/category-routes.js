@@ -9,14 +9,25 @@ router.get('/', async (req, res) => {
     const catData = await Category.findAll({
       include: [{model: Product}]
     });
-    
+
     res.json(catData.map(x => x.get()));
   })
 });
 
-router.get('/:id', (req, res) => {
-  // find one category by its `id` value
-  // be sure to include its associated Products
+router.get('/:id', async (req, res) => {
+  await util.SafeRequest(req, res, async (req, res) => {
+    const id = req.params.id;
+
+    if (isNaN(id)) {
+      throw new Error("Param Invalid Format");
+    }
+
+    const cat = await Category.findByPk(id, {
+      include: [{model: Product}]
+    });
+
+    res.json(cat.get());
+  })
 });
 
 router.post('/', (req, res) => {
