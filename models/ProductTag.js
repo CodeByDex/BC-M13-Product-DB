@@ -27,7 +27,6 @@ ProductTag.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    // modelName: 'product_tag',
     uniqueKeys: {
       UKProductTag: {
         fields: ["product_id", "tag_id"]
