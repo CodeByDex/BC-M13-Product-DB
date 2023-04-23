@@ -8,7 +8,7 @@ module.exports = {
 
 async function SafeRequest(res, cb) {
     try {
-       await cb(res);
+        await cb(res);
     } catch (err) {
         console.log(err);
         let errCode = 500;
@@ -34,7 +34,7 @@ async function SafeGetAll(res, model, includes) {
 }
 
 async function SafeGetByID(ID, res, model, includes) {
-    SafeRequest(res, async (res) => {    
+    SafeRequest(res, async (res) => {
         const modelData = await getByID(ID, model, includes);
 
         res.json(modelData.get());
