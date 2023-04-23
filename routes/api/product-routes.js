@@ -6,26 +6,16 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 
 // get all products
 router.get('/', (req, res) => {
-  util.SafeGetAll(res, Product, [{model: Category}, {model: Tag}]);
+  util.SafeGetAll(res, Product, [{ model: Category }, { model: Tag }]);
 });
 
 // get one product
 router.get('/:id', (req, res) => {
-  // find a single product by its `id`
-  // be sure to include its associated Category and Tag data
-  util.SafeGetByID(req.params.id, res, Product, [{model: Category}, {model: Tag}]);
+  util.SafeGetByID(req.params.id, res, Product, [{ model: Category }, { model: Tag }]);
 });
 
 // create new product
 router.post('/', (req, res) => {
-  /* req.body should look like this...
-    {
-      product_name: "Basketball",
-      price: 200.00,
-      stock: 3,
-      tagIds: [1, 2, 3, 4]
-    }
-  */
   Product.create(req.body.Product)
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model

@@ -5,15 +5,15 @@ const { Category, Product } = require('../../models');
 // The `/api/categories` endpoint
 
 router.get('/', (req, res) => {
-  util.SafeGetAll(res, Category, [{model: Product}]);
+  util.SafeGetAll(res, Category, [{ model: Product }]);
 });
 
 router.get('/:id', (req, res) => {
-  util.SafeGetByID(req.params.id, res, Category, [{model: Product}]);
+  util.SafeGetByID(req.params.id, res, Category, [{ model: Product }]);
 });
 
 router.post('/', (req, res) => {
-   util.SafeCreate(res, Category, req.body.Category);
+  util.SafeCreate(res, Category, req.body.Category);
 });
 
 router.put('/:id', (req, res) => {
